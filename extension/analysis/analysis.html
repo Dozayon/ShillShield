@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="analysis.css">
+  </head>
+
+  <body>
+    <div id="app" class="container my-4">
+      <div class="row justify-content-center mb-4">
+        <img style="width: 8em" src="/icons/shillshield-256.png">
+        <h1 class="display-1">ShillShield</h1>
+      </div>
+
+      <h1 class="text-center">
+        Overview for {{ username }}
+      </h1>
+      <h5 class="text-center">
+        Joined Reddit {{ age }} ({{ creation }})
+      </h5>
+
+      <div class="row justify-content-center mt-4">
+        <div class="col-4">
+          <div class="bg-success text-white my-4" v-if="!shill">
+            <h2 class="text-center py-2">Not a shill</h2>
+          </div>
+          <div class="bg-danger text-white my-4" v-if="shill">
+            <h2 class="text-center py-2">Shill</h2>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <h3 class="text-center">
+        Sentiment in comments
+      </h3>
+      <div class="progress" style="height: 30px;">
+        <div class="progress-bar" :style="{ width: sentiment + '%' }"></div>
+      </div>
+      <div class="row">
+        <div class="col-2">Negative sentiment</div>
+        <div class="col-2 ml-auto text-right">Postive sentiment</div>
+      </div>
+
+      <h3 class="text-center mt-3">
+        Comment controversy
+      </h3>
+      <div class="progress" style="height: 30px;">
+        <div class="progress-bar" :style="{ width: commentControversiality + '%' }">{{ Math.round(commentControversiality) }}%</div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="row pt-4">
+        <div class="col">
+          <h3 class="text-center mb-3">Post activity over time</h3>
+          <graph-with-options type="post-count"></graph-with-options>
+        </div>
+        <div class="col">
+          <h3 class="text-center mb-3">Post score over time</h3>
+          <graph-with-options type="post-score"></graph-with-options>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="row pt-4">
+        <div class="col">
+          <h3 class="text-center mb-3">Comment activity over time</h3>
+          <graph-with-options type="comment-count"></graph-with-options>
+        </div>
+        <div class="col">
+          <h3 class="text-center mb-3">Comment score over time</h3>
+          <graph-with-options type="comment-score"></graph-with-options>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+
+    <script src="analysis.js"></script>
+  </body>
+
+</html>
